@@ -7,4 +7,4 @@ Amazon Web Services used - 1) Elastik Beanstalk
 
 Hopefully, I will be able to create a better version of this after gaining knowledge of JavaScript.
 
-EDIT -- After learning basic JavaScript and Jquery, I implemented Edit and Delete options for each Thought(data). Stack Overflow was instrumental throughout the implementation of my new skills.
+EDIT -- After learning basic JavaScript and Jquery, I implemented Edit and Delete options for each Thought(data) in Version 2.0. Stack Overflow was instrumental throughout the implementation of my new skills.
