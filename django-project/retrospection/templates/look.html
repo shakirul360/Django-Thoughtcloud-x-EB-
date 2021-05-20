@@ -21,13 +21,43 @@
             </thead>
             <tbody>
                 {% for obj in data%}     
-                <tr>
+                <tr> 
                     <td scope="row">{{ obj.thought }}</td>
                     <td>{{ obj.date.date}}</td>
+
+                    <td>|| <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Edit</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method = "POST" enctype= multipart/form-data id = "editt">
+			                        {% csrf_token %}
+                                    <textarea id = 'thought' style="resize:none" type = "text" placeholder = "{{ obj.thought }}." rows = "5" cols = "40" name = "thought" required></textarea><br>
+                            </div><br>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a type = "button" data-catid = "{{ obj.id  }}"><button type="button" class="btn btn-primary submit" id = "upload-form-btn">Save changes</button></a>
+
+		                        </form>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                    </td>
+                        
+                    <td>|| <a href = "{% url 'delete' obj.id %}"><button type="button" class="btn btn-outline-warning btn-sm"><p class="text-warning">Delete</p></button></a></td>
                 </tr>
                 {% endfor %}
 
-    </tbody>
+            </tbody>
     
         </table>
         <br>
@@ -35,10 +65,47 @@
     
     </div>
     <br><br>
+
+
+
+    <script type="text/javascript"> 
+         $('.submit').click(function(event) {
+            var id = $(this).parent().attr("data-catid");
+            var thought = $("#thought").val();
+            //alert(id + "datas  "+thought)
+            //alert($("[name=csrfmiddlewaretoken]").val())
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: 'edit',
+                data: {
+                    'thought': thought,
+                    'id': id,
+                    'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()
+                },
+                //contentType: false, // add this to indicate 'multipart/form-data'
+                success: function(response) {
+                alert('Form Submitted');
+                location.reload();
+                },
+                error: function(data) {
+                //alert('Form submission failed');
+                }
+            });
+
+            });
+
+    </script>
+
+
     <div>
 
     {% block stylesheet %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
     {% endblock stylesheet %}
 
 
@@ -49,54 +116,3 @@
     
 {% endblock content %}
 
-
-
-<!--
-
-<div>
-
-
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="?pg=1">Previous</a></li>
-            
-            {% if data.has_previous %}
-                <li class="page-item"><a class="page-link" href="?pg={{ data.previous_page_number }}">{{ data.previous_page_number }}</a></li>
-            {% endif %}
-            
-            <li class="page-item"><a class="page-link" href="?pg={{ data.number }}">{{ data.number }}</a></li>
-            <li class="page-item"><a class="page-link" href="?pg={{ data.next_page_number }}">{{ data.next_page_number }}</a></li>
-            
-            {% if data.has_next %}
-                <li class="page-item"><a class="page-link" href="?pg={{ data.paginator.num_pages }}">Next</a></li>
-            {% endif %}
-        
-        </ul>
-    </nav>
-
-    </div>
-
-
-
-
-
-
-<nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-
-
-
-
-    -->
