@@ -11,15 +11,15 @@ body{
     background-size: cover;
     margin: 0;
 	padding: 0;
-	background-position-y:-250px;
-	background-attachment: fixed; */
+	background-position-y: bottom;
+	background-attachment: fixed; 
 	
 }
 
 .topnav {
     background-color:rgb(0, 0, 0, 0);
     overflow: hidden;
-	border-color: rgb(235, 214, 186)74);
+	border-color: rgb(235, 214, 186);
 	background-size: cover;
 	margin: 1%;
 	
@@ -97,7 +97,7 @@ body{
 
 
 .input{
-    color: rgb(207, 212, 230);
+    color: rgb(3 3 3 / 57%);
     font-size: small;
     font-style:initial;
     font-family: 'Noto Sans', sans-serif;
@@ -107,12 +107,12 @@ body{
 }
 
 .input h2{
-	color: rgb(248, 248, 248);
+	color: rgb(3 3 3 / 57%);
 	text-shadow: #33383b;
 }
 
 .input h2 a{
-	color: rgba(146, 192, 194, 0.541);
+	color: rgb(3 3 3 / 72%);
 }
 
 body .results{
